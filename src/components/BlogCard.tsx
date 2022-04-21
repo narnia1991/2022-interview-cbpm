@@ -10,10 +10,11 @@ type Props = {
   onDeleteClick: MouseEventHandler;
 };
 
-const BlogTitle = styled.h2`
+export const BlogTitle = styled.h2`
   margin: 0;
 `;
-const BlogDate = styled.div`
+
+export const BlogDate = styled.div`
   margin: 0 0 0.5rem;
   font-size: 0.8rem;
   font-style: italic;
@@ -30,17 +31,29 @@ const BlogCard: FC<Props> = ({ blog, onEditClick, onDeleteClick }) => {
         display: "flex",
         flexDirection: "column",
         textAlign: "left",
+        cursor: "pointer",
+      }}
+      onClick={() => {
+        window.location.href += blog.id;
       }}
     >
       <Box display="flex" justifyContent="flex-end">
         <EditOutlined
           sx={{ cursor: "pointer" }}
-          onClick={onEditClick}
+          onClick={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            onEditClick(e);
+          }}
           color="primary"
         />
         <DeleteOutlined
           sx={{ cursor: "pointer" }}
-          onClick={onDeleteClick}
+          onClick={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            onDeleteClick(e);
+          }}
           color="error"
         />
       </Box>

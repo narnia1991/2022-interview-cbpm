@@ -12,6 +12,6 @@ const NoRecordsContainer = styled.div`
 `;
 
 const NoRecords: FC = () => {
-  return <NoRecordsContainer>No Records Found</NoRecordsContainer>;
+  return <NoRecordsContainer>No Record/s Found</NoRecordsContainer>;
 };
 export default NoRecords;

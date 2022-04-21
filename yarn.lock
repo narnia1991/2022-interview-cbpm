@@ -5005,6 +5005,11 @@ functions-have-names@^1.2.2:
   resolved "https://registry.yarnpkg.com/functions-have-names/-/functions-have-names-1.2.3.tgz#0404fe4ee2ba2f607f0e0ec3c80bae994133b834"
   integrity sha512-xckBUXyTIqT97tq2x2AMb+g163b5JFysYk0x4qxNFwbfQkmNZoiRHb6sPzI9/QV33WeuvVYBUIiD4NzNIyqaRQ==
 
+fuzzysort@^1.2.1:
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/fuzzysort/-/fuzzysort-1.2.1.tgz#ea23d3c4d7726422888f538044fcea265644d54c"
+  integrity sha512-egTSF3U6H6T9tXtAhEm5P5guSSDjd96/NUWrbmoGlIu3ATMdXra13gwQdEFRY6ehsFe8xec7UnQz+k34CGWCIg==
+
 gensync@^1.0.0-beta.2:
   version "1.0.0-beta.2"
   resolved "https://registry.yarnpkg.com/gensync/-/gensync-1.0.0-beta.2.tgz#32a6ee76c3d7f52d46b2b1ae5d93fea8580a25e0"

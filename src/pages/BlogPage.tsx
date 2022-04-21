@@ -52,7 +52,6 @@ const BlogPage: FC = () => {
       ) : (
         <NoRecords />
       )}
-      ;
     </>
   );
 };

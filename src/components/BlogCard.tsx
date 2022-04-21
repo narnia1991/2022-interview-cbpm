@@ -22,6 +22,8 @@ export const BlogDate = styled.div`
 `;
 
 const BlogCard: FC<Props> = ({ blog, onEditClick, onDeleteClick }) => {
+  const maxTitleLength = 64;
+  const maxContentLength = 128;
   return (
     <Card
       variant="outlined"
@@ -57,9 +59,17 @@ const BlogCard: FC<Props> = ({ blog, onEditClick, onDeleteClick }) => {
           color="error"
         />
       </Box>
-      <BlogTitle>{blog.title}</BlogTitle>
+      <BlogTitle>
+        {blog.title.length > maxTitleLength
+          ? `${blog.title.substring(0, maxTitleLength)}…`
+          : blog.title}
+      </BlogTitle>
       <BlogDate>{blog.dateCreated}</BlogDate>
-      <div>{blog.content}</div>
+      <div>
+        {blog.content.length > maxContentLength
+          ? `${blog.content.substring(0, maxContentLength)}…`
+          : blog.content}
+      </div>
     </Card>
   );
 };

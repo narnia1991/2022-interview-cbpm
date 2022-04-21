@@ -1,4 +1,4 @@
-import { FC, useCallback, useEffect, useState } from "react";
+import { FC, SyntheticEvent, useCallback, useEffect, useState } from "react";
 import { collection, getDocs, orderBy, query, where } from "firebase/firestore";
 import {
   Alert,
@@ -12,6 +12,8 @@ import {
   TextField,
 } from "@mui/material";
 import { SearchOutlined } from "@mui/icons-material";
+import styled from "@emotion/styled";
+import ReactPaginate from "react-paginate";
 
 import { db } from "../firebase";
 import BlogCard from "../components/BlogCard";
@@ -34,6 +36,24 @@ const sortPairs: Record<string, string> = {
   "dateUpdated desc": "Most Updated",
 };
 
+const PaginationContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  font-size: 1rem;
+  font-weight: bold;
+
+  li {
+    margin: 0.5rem;
+    list-style: none;
+    background-color: #eee;
+    padding: 1rem;
+  }
+
+  ul {
+    display: flex;
+  }
+`;
+
 const Landing: FC = () => {
   // modal States
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
@@ -52,6 +72,12 @@ const Landing: FC = () => {
   const [filteredList, setFilteredList] = useState<Array<Blog>>([]);
   const [sort, setSort] = useState("dateCreated");
   const [sortOrder, setSortOrder] = useState("desc");
+
+  //pagination States
+  const [currentItems, setCurrentItems] = useState<Array<Blog>>([]);
+  const [pageCount, setPageCount] = useState(0);
+  const [itemOffset, setItemOffset] = useState(0);
+  const itemsPerPage = 4;
 
   useEffect(() => {
     const loadBlogs = async () => {
@@ -206,6 +232,19 @@ const Landing: FC = () => {
     setFilteredList([...titleMatch, ...contentMatch]);
   };
 
+  useEffect(() => {
+    // Fetch items from another resources.
+    const endOffset = itemOffset + itemsPerPage;
+    setCurrentItems(filteredList.slice(itemOffset, endOffset));
+    setPageCount(Math.ceil(filteredList.length / itemsPerPage));
+  }, [itemOffset, itemsPerPage, filteredList]);
+
+  // Invoke when user click to request another page.
+  const handlePageClick = (event: any) => {
+    const newOffset = (event.selected * itemsPerPage) % filteredList.length;
+    setItemOffset(newOffset);
+  };
+
   return window.location.pathname === "/" ? (
     <Box padding={4}>
       <CreatePostModal
@@ -292,8 +331,8 @@ const Landing: FC = () => {
         </Alert>
       )}
 
-      {filteredList.length ? (
-        filteredList
+      {currentItems.length ? (
+        currentItems
           .filter((blog) => blog.isActive === true)
           .map((blog: Blog) => (
             <BlogCard
@@ -306,6 +345,17 @@ const Landing: FC = () => {
       ) : (
         <NoRecords />
       )}
+      <PaginationContainer>
+        <ReactPaginate
+          breakLabel="..."
+          nextLabel="next >"
+          onPageChange={handlePageClick}
+          pageRangeDisplayed={5}
+          pageCount={pageCount}
+          previousLabel="< previous"
+          renderOnZeroPageCount={() => {}}
+        />
+      </PaginationContainer>
     </Box>
   ) : (
     <BlogPage />

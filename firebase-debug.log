@@ -1,0 +1,13 @@
+[debug] [2022-04-21T03:38:39.787Z] ----------------------------------------------------------------------
+[debug] [2022-04-21T03:38:39.789Z] Command:       D:\Program Files\nodejs\node.exe C:\Users\Narnia\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js deploy
+[debug] [2022-04-21T03:38:39.790Z] CLI Version:   10.7.0
+[debug] [2022-04-21T03:38:39.790Z] Platform:      win32
+[debug] [2022-04-21T03:38:39.790Z] Node Version:  v17.9.0
+[debug] [2022-04-21T03:38:39.791Z] Time:          Thu Apr 21 2022 11:38:39 GMT+0800 (Philippine Standard Time)
+[debug] [2022-04-21T03:38:39.791Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2022-04-21T03:38:39.862Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2022-04-21T03:38:39.862Z] > authorizing via signed-in user (junaralinsub2@gmail.com)
+[debug] [2022-04-21T03:38:39.862Z] [iam] checking project collaberapaymaya for permissions ["firebase.projects.get","firebasehosting.sites.update"]
+[debug] [2022-04-21T03:38:39.865Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/collaberapaymaya:testIamPermissions [none]
+[debug] [2022-04-21T03:38:39.865Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/collaberapaymaya:testIamPermissions {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}

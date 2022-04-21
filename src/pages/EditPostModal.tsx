@@ -13,26 +13,38 @@ type Props = {
   isOpen: boolean;
   onClose(): void;
   dataId: string;
+  onSuccess(): void;
 };
 
-const EditPostModal: FC<Props> = ({ oldData, isOpen, onClose, dataId }) => {
-  const editPost = (data: FieldValues) => {
+const EditPostModal: FC<Props> = ({
+  oldData,
+  isOpen,
+  onClose,
+  onSuccess,
+  dataId,
+}) => {
+  const { reset } = useForm();
+  const editPost = async (data: FieldValues) => {
     const oldDataRef = doc(db, cName, dataId);
     try {
-      updateDoc(oldDataRef, blogToData({ ...oldData, ...data }));
+      await updateDoc(oldDataRef, blogToData({ ...oldData, ...data }));
+      reset({});
       onClose();
+      onSuccess();
     } catch (err) {
       console.log(err);
     }
   };
 
-  console.log(dataId);
-
+  const closeModal = useCallback(() => {
+    reset({});
+    onClose();
+  }, []);
   return (
     <BlogModal
       onSubmit={editPost}
       isOpen={isOpen}
-      onModalClose={onClose}
+      onModalClose={closeModal}
       header="Edit Post"
       data={oldData}
     />

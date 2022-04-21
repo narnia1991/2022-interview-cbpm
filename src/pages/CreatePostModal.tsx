@@ -9,27 +9,35 @@ import BlogModal from "../components/BlogModal";
 type Props = {
   isOpen: boolean;
   onClose(): void;
+  onSuccess(): void;
 };
 
-const CreatePostModal: FC<Props> = ({ isOpen, onClose }) => {
+const CreatePostModal: FC<Props> = ({ isOpen, onClose, onSuccess }) => {
   const blogCollectionRef = collection(db, "blogList");
+  const { reset } = useForm();
 
-  const createPost = (data: FieldValues) => {
+  const createPost = async (data: FieldValues) => {
     try {
-      console.log(blogToData(data));
-      addDoc(blogCollectionRef, blogToData(data));
+      await addDoc(blogCollectionRef, blogToData(data));
+      reset({});
       onClose();
+      onSuccess();
     } catch (err) {
       console.log(err);
       // noop
     }
   };
 
+  const closeModal = useCallback(() => {
+    reset({});
+    onClose();
+  }, []);
+
   return (
     <BlogModal
       onSubmit={createPost}
       isOpen={isOpen}
-      onModalClose={onClose}
+      onModalClose={closeModal}
       header="Create Post"
     />
   );

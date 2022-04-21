@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useEffect } from "react";
 import { Box, Button, Container, Modal, TextField } from "@mui/material";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { CloseOutlined } from "@mui/icons-material";
@@ -27,14 +27,14 @@ const BlogModal: FC<Props> = ({
     reset,
   } = useForm();
 
-  return (
-    <Modal
-      open={isOpen}
-      onClose={() => {
-        reset({ title: "", content: "" });
-        onModalClose();
-      }}
-    >
+  useEffect(() => {
+    if (!isOpen) {
+      reset();
+    }
+  }, [isOpen]);
+
+  return isOpen ? (
+    <Modal open={isOpen} onClose={onModalClose}>
       <Container
         sx={{
           minHeight: "20rem",
@@ -87,6 +87,8 @@ const BlogModal: FC<Props> = ({
         </form>
       </Container>
     </Modal>
+  ) : (
+    <></>
   );
 };
 

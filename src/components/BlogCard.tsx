@@ -2,12 +2,23 @@ import { Box, Card, Icon } from "@mui/material";
 import { FC, MouseEventHandler } from "react";
 import { Blog } from "../types";
 import { DeleteOutlined, EditOutlined } from "@mui/icons-material";
+import styled from "@emotion/styled";
 
 type Props = {
   blog: Blog;
   onEditClick: MouseEventHandler;
   onDeleteClick: MouseEventHandler;
 };
+
+const BlogTitle = styled.h2`
+  margin: 0;
+`;
+const BlogDate = styled.div`
+  margin: 0 0 0.5rem;
+  font-size: 0.8rem;
+  font-style: italic;
+  color: #777;
+`;
 
 const BlogCard: FC<Props> = ({ blog, onEditClick, onDeleteClick }) => {
   return (
@@ -33,8 +44,8 @@ const BlogCard: FC<Props> = ({ blog, onEditClick, onDeleteClick }) => {
           color="error"
         />
       </Box>
-      <h1>{blog.title}</h1>
-      <div>{blog.dateCreated}</div>
+      <BlogTitle>{blog.title}</BlogTitle>
+      <BlogDate>{blog.dateCreated}</BlogDate>
       <div>{blog.content}</div>
     </Card>
   );

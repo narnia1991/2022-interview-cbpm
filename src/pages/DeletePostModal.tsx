@@ -12,15 +12,22 @@ type Props = {
   onClose(): void;
   dataId: string;
   oldData: Blog;
+  onSuccess(): void;
 };
 
-const DeletePostModal: FC<Props> = ({ isOpen, onClose, dataId, oldData }) => {
-  const deletePost = () => {
+const DeletePostModal: FC<Props> = ({
+  isOpen,
+  onClose,
+  onSuccess,
+  dataId,
+  oldData,
+}) => {
+  const deletePost = async () => {
     try {
-      console.log("dataId", dataId);
       const oldDataRef = doc(db, cName, dataId);
-      updateDoc(oldDataRef, { ...blogToData(oldData), isActive: false });
+      await updateDoc(oldDataRef, { ...blogToData(oldData), isActive: false });
       onClose();
+      onSuccess();
     } catch (err) {
       console.log(err);
     }

@@ -22,7 +22,6 @@ const BlogPage: FC = () => {
   const id = window.location.pathname.substring(1);
   useEffect(() => {
     const loadBlog = async () => {
-      console.log(id);
       const data = await getDocs(
         query(collection(db, cName), where(documentId(), "==", id))
       );

@@ -47,6 +47,7 @@ const PaginationContainer = styled.div`
     list-style: none;
     background-color: #eee;
     padding: 1rem;
+    cursor: pointer;
   }
 
   ul {
@@ -211,8 +212,6 @@ const Landing: FC = () => {
   const searchList = (e: any) => {
     e.preventDefault();
     const searchKey = e.target.value;
-
-    console.log(searchKey);
     const titleMatch: Array<Blog> = [];
     const contentMatch: Array<Blog> = [];
     Object.values(blogList)
